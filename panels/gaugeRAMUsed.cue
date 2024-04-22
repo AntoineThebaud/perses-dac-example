@@ -6,20 +6,20 @@ import (
 )
 
 gaugeRAMUsed: panelBuilder & {
-    #filter: _
+	#filter: _
 
-    spec: {
-        display: {
-            name: "RAM Used"
-            description: "Non available RAM memory"
-        },
-        plugin: commonGaugePlugin
-        queries: [
-            {
-                kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & { spec: {
-                    datasource: name: "argos-world"
-                    query: """
+	spec: {
+		display: {
+			name:        "RAM Used"
+			description: "Non available RAM memory"
+		}
+		plugin: commonGaugePlugin
+		queries: [
+			{
+				kind: "TimeSeriesQuery"
+				spec: plugin: promQuery & {spec: {
+					datasource: name: "argos-world"
+					query: """
                     (
                         (
                             avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
@@ -32,13 +32,13 @@ gaugeRAMUsed: panelBuilder & {
                         )
                     ) * 100
                     """
-                }}
-            },
-            {
-                kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & { spec: {
-                    datasource: name: "argos-world"
-                    query: """
+				}}
+			},
+			{
+				kind: "TimeSeriesQuery"
+				spec: plugin: promQuery & {spec: {
+					datasource: name: "argos-world"
+					query: """
                     100 - (
                         (
                             avg_over_time(node_memory_MemAvailable_bytes{\(#filter)}[$__rate_interval])
@@ -49,8 +49,8 @@ gaugeRAMUsed: panelBuilder & {
                         avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
                     )
                     """
-                }}
-            }
-        ]
-    }
+				}}
+			},
+		]
+	}
 }

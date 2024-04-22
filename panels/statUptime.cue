@@ -6,24 +6,24 @@ import (
 )
 
 statUptime: panelBuilder & {
-    #filter: _
+	#filter: _
 
-    spec: {
-        display: {
-            name: "Uptime"
-            description: "System uptime"
-        },
-        plugin: commonStatPlugin & { spec: format: unit: "seconds" }
-        queries: [{
-            kind: "TimeSeriesQuery"
-            spec: plugin: promQuery & { spec: {
-                datasource: name: "argos-world"
-                query: """
+	spec: {
+		display: {
+			name:        "Uptime"
+			description: "System uptime"
+		}
+		plugin: commonStatPlugin & {spec: format: unit: "seconds"}
+		queries: [{
+			kind: "TimeSeriesQuery"
+			spec: plugin: promQuery & {spec: {
+				datasource: name: "argos-world"
+				query: """
                 node_time_seconds{\(#filter)}
                 -
                 node_boot_time_seconds{\(#filter)}
                 """
-            }}
-        }]
-    }
+			}}
+		}]
+	}
 }

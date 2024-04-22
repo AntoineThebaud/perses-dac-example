@@ -26,9 +26,9 @@ import (
 
 #nodeVarsBuilder: varGroupBuilder & {
 	#input: [
-		textVarBuilder & { #name: "stack", #value: "erd4", #constant: true },
-		textVarBuilder & { #name: "prometheus", #value: "system", #constant: true},
-		textVarBuilder & { #name: "job", #value: "cmdbrtu-custom-sd", #constant: true },
+		textVarBuilder & {#name: "stack", #value: "erd4", #constant: true},
+		textVarBuilder & {#name: "prometheus", #value: "system", #constant: true},
+		textVarBuilder & {#name: "job", #value: "cmdbrtu-custom-sd", #constant: true},
 		promQLVarBuilder & {
 			#name: "instance"
 			#display: name: "Host"
@@ -41,9 +41,9 @@ import (
 #nodeFilter: {promFilterBuilder & #nodeVarsBuilder}.filter
 
 dashboardBuilder & {
-	#name:      "nodeexportersimple"
+	#name: "node-exporter-simple"
 	#display: name: "Node Exporter Simple"
-	#project:   "athebaud"
+	#project: "athebaud"
 	#variables: #nodeVarsBuilder.variables
 	#panelGroups: panelGroupsBuilder & {
 		#input: [
@@ -51,13 +51,13 @@ dashboardBuilder & {
 				#title: "Quick CPU / Mem / Disk"
 				#cols:  7
 				#panels: [
-					panels.gaugeSysLoad & { #filter: #nodeFilter },
-					panels.gaugeRAMUsed & { #filter: #nodeFilter },
-					panels.gaugeRootFS & { #filter: #nodeFilter },
-					panels.statCPUCores & { #filter: #nodeFilter },
-					panels.statRAMTotal & { #filter: #nodeFilter },
-					panels.statRootFSTotal & { #filter: #nodeFilter },
-					panels.statUptime & { #filter: #nodeFilter },
+					panels.gaugeSysLoad & {#filter: #nodeFilter},
+					panels.gaugeRAMUsed & {#filter: #nodeFilter},
+					panels.gaugeRootFS & {#filter: #nodeFilter},
+					panels.statCPUCores & {#filter: #nodeFilter},
+					panels.statRAMTotal & {#filter: #nodeFilter},
+					panels.statRootFSTotal & {#filter: #nodeFilter},
+					panels.statUptime & {#filter: #nodeFilter},
 				]
 			},
 			{
@@ -65,10 +65,10 @@ dashboardBuilder & {
 				#cols:   2
 				#height: 7
 				#panels: [
-					panels.timeseriesCPUBasic & { #filter: #nodeFilter },
-					panels.timeseriesMemoryBasic & { #filter: #nodeFilter },
-					panels.timeseriesNetworkTrafficBasic & { #filter: #nodeFilter },
-					panels.timeseriesDiskSpaceUsedBasic & { #filter: #nodeFilter },
+					panels.timeseriesCPUBasic & {#filter: #nodeFilter},
+					panels.timeseriesMemoryBasic & {#filter: #nodeFilter},
+					panels.timeseriesNetworkTrafficBasic & {#filter: #nodeFilter},
+					panels.timeseriesDiskSpaceUsedBasic & {#filter: #nodeFilter},
 				]
 			},
 		]

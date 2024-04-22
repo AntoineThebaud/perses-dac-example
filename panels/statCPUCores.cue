@@ -6,22 +6,22 @@ import (
 )
 
 statCPUCores: panelBuilder & {
-    #filter: _
+	#filter: _
 
-    spec: {
-        display: {
-            name: "CPU Cores"
-            description: "Total number of CPU cores"
-        },
-        plugin: commonStatPlugin & { spec: format: unit: "decimal" }
-        queries: [{
-            kind: "TimeSeriesQuery"
-            spec: plugin: promQuery & { spec: {
-                datasource: name: "argos-world"
-                query: """
+	spec: {
+		display: {
+			name:        "CPU Cores"
+			description: "Total number of CPU cores"
+		}
+		plugin: commonStatPlugin & {spec: format: unit: "decimal"}
+		queries: [{
+			kind: "TimeSeriesQuery"
+			spec: plugin: promQuery & {spec: {
+				datasource: name: "argos-world"
+				query: """
                 count(count(node_cpu_seconds_total{\(#filter)}) by (cpu))
                 """
-            }}
-        }]
-    }
+			}}
+		}]
+	}
 }

@@ -6,22 +6,22 @@ import (
 )
 
 statRootFSTotal: panelBuilder & {
-    #filter: _
+	#filter: _
 
-    spec: {
-        display: {
-            name: "RootFS Total"
-            description: "Total RootFS"
-        },
-        plugin: commonStatPlugin & unitBytes
-        queries: [{
-            kind: "TimeSeriesQuery"
-            spec: plugin: promQuery & { spec: {
-                datasource: name: "argos-world"
-                query: """
+	spec: {
+		display: {
+			name:        "RootFS Total"
+			description: "Total RootFS"
+		}
+		plugin: commonStatPlugin & unitBytes
+		queries: [{
+			kind: "TimeSeriesQuery"
+			spec: plugin: promQuery & {spec: {
+				datasource: name: "argos-world"
+				query: """
                 node_filesystem_size_bytes{\(#filter),mountpoint="/",fstype!="rootfs"}
                 """
-            }}
-        }]
-    }
+			}}
+		}]
+	}
 }

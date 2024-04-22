@@ -6,22 +6,22 @@ import (
 )
 
 statRAMTotal: panelBuilder & {
-    #filter: _
+	#filter: _
 
-    spec: {
-        display: {
-            name: "RAM Total"
-            description: "Total RAM"
-        },
-        plugin: commonStatPlugin & unitBytes
-        queries: [{
-            kind: "TimeSeriesQuery"
-            spec: plugin: promQuery & { spec: {
-                datasource: name: "argos-world"
-                query: """
+	spec: {
+		display: {
+			name:        "RAM Total"
+			description: "Total RAM"
+		}
+		plugin: commonStatPlugin & unitBytes
+		queries: [{
+			kind: "TimeSeriesQuery"
+			spec: plugin: promQuery & {spec: {
+				datasource: name: "argos-world"
+				query: """
                 node_memory_MemTotal_bytes{\(#filter)}
                 """
-            }}
-        }]
-    }
+			}}
+		}]
+	}
 }
