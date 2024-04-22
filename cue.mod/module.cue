@@ -1,1 +1,1 @@
-module: "github.com/AntoineThebaud/dac-tech-talk-dashboard"
+module: "github.com/AntoineThebaud/perses-dac-example"
