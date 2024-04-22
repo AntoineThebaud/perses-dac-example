@@ -21,7 +21,7 @@ import (
 	textVarBuilder "github.com/perses/perses/cue/dac-utils/variable/text"
 	promFilterBuilder "github.com/perses/perses/cue/dac-utils/prometheus/filter"
 
-	panels "github.com/AntoineThebaud/dac-tech-talk-dashboard/panels"
+	panels "github.com/AntoineThebaud/perses-dac-example/panels"
 )
 
 #nodeVarsBuilder: varGroupBuilder & {
