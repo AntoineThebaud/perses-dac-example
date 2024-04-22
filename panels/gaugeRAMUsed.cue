@@ -17,43 +17,39 @@ gaugeRAMUsed: panelBuilder & {
         queries: [
             {
                 kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & {
-                    spec: {
-                        datasource: name: "argos-world"
-                        query: """
+                spec: plugin: promQuery & { spec: {
+                    datasource: name: "argos-world"
+                    query: """
+                    (
                         (
-                            (
-                                avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
-                                -
-                                avg_over_time(node_memory_MemFree_bytes{\(#filter)}[$__rate_interval])
-                            )
-                            /
-                            (
-                                avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
-                            )
-                        ) * 100
-                        """
-                    }
-                }
+                            avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
+                            -
+                            avg_over_time(node_memory_MemFree_bytes{\(#filter)}[$__rate_interval])
+                        )
+                        /
+                        (
+                            avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
+                        )
+                    ) * 100
+                    """
+                }}
             },
             {
                 kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & {
-                    spec: {
-                        datasource: name: "argos-world"
-                        query: """
-                        100 - (
-                            (
-                                avg_over_time(node_memory_MemAvailable_bytes{\(#filter)}[$__rate_interval])
-                                *
-                                100
-                            ) 
-                            /
-                            avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
-                        )
-                        """
-                    }
-                }
+                spec: plugin: promQuery & { spec: {
+                    datasource: name: "argos-world"
+                    query: """
+                    100 - (
+                        (
+                            avg_over_time(node_memory_MemAvailable_bytes{\(#filter)}[$__rate_interval])
+                            *
+                            100
+                        ) 
+                        /
+                        avg_over_time(node_memory_MemTotal_bytes{\(#filter)}[$__rate_interval])
+                    )
+                    """
+                }}
             }
         ]
     }

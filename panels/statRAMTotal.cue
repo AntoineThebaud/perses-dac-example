@@ -14,18 +14,14 @@ statRAMTotal: panelBuilder & {
             description: "Total RAM"
         },
         plugin: commonStatPlugin & unitBytes
-        queries: [
-            {
-                kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & {
-                    spec: {
-                        datasource: name: "argos-world"
-                        query: """
-                        node_memory_MemTotal_bytes{\(#filter)}
-                        """
-                    }
-                }
-            },
-        ]
+        queries: [{
+            kind: "TimeSeriesQuery"
+            spec: plugin: promQuery & { spec: {
+                datasource: name: "argos-world"
+                query: """
+                node_memory_MemTotal_bytes{\(#filter)}
+                """
+            }}
+        }]
     }
 }

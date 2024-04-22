@@ -14,20 +14,16 @@ statUptime: panelBuilder & {
             description: "System uptime"
         },
         plugin: commonStatPlugin & { spec: format: unit: "seconds" }
-        queries: [
-            {
-                kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & {
-                    spec: {
-                        datasource: name: "argos-world"
-                        query: """
-                        node_time_seconds{\(#filter)}
-                        -
-                        node_boot_time_seconds{\(#filter)}
-                        """
-                    }
-                }
-            },
-        ]
+        queries: [{
+            kind: "TimeSeriesQuery"
+            spec: plugin: promQuery & { spec: {
+                datasource: name: "argos-world"
+                query: """
+                node_time_seconds{\(#filter)}
+                -
+                node_boot_time_seconds{\(#filter)}
+                """
+            }}
+        }]
     }
 }

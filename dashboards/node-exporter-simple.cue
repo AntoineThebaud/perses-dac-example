@@ -63,8 +63,12 @@ dashboardBuilder & {
 			{
 				#title:  "Basic CPU / Mem / Net / Disk"
 				#cols:   2
-				#height: 8
+				#height: 7
 				#panels: [
+					panels.timeseriesCPUBasic & { #filter: #nodeFilter },
+					panels.timeseriesMemoryBasic & { #filter: #nodeFilter },
+					panels.timeseriesNetworkTrafficBasic & { #filter: #nodeFilter },
+					panels.timeseriesDiskSpaceUsedBasic & { #filter: #nodeFilter },
 				]
 			},
 		]

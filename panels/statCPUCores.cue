@@ -14,18 +14,14 @@ statCPUCores: panelBuilder & {
             description: "Total number of CPU cores"
         },
         plugin: commonStatPlugin & { spec: format: unit: "decimal" }
-        queries: [
-            {
-                kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & {
-                    spec: {
-                        datasource: name: "argos-world"
-                        query: """
-                        count(count(node_cpu_seconds_total{\(#filter)}) by (cpu))
-                        """
-                    }
-                }
-            },
-        ]
+        queries: [{
+            kind: "TimeSeriesQuery"
+            spec: plugin: promQuery & { spec: {
+                datasource: name: "argos-world"
+                query: """
+                count(count(node_cpu_seconds_total{\(#filter)}) by (cpu))
+                """
+            }}
+        }]
     }
 }

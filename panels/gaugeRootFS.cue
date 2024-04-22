@@ -14,26 +14,22 @@ gaugeRootFS: panelBuilder & {
             description: "Used Root FS"
         },
         plugin: commonGaugePlugin
-        queries: [
-            {
-                kind: "TimeSeriesQuery"
-                spec: plugin: promQuery & {
-                    spec: {
-                        datasource: name: "argos-world"
-                        query: """
-                            100 - (
-                                (
-                                    avg_over_time(node_filesystem_avail_bytes{\(#filter),mountpoint="/",fstype!="rootfs"}[$__rate_interval])
-                                    *
-                                    100
-                                )
-                                /
-                                avg_over_time(node_filesystem_size_bytes{\(#filter),mountpoint="/",fstype!="rootfs"}[$__rate_interval])
-                            )
-                        """
-                    }
-                }
-            }
-        ]
+        queries: [{
+            kind: "TimeSeriesQuery"
+            spec: plugin: promQuery & { spec: {
+                datasource: name: "argos-world"
+                query: """
+                    100 - (
+                        (
+                            avg_over_time(node_filesystem_avail_bytes{\(#filter),mountpoint="/",fstype!="rootfs"}[$__rate_interval])
+                            *
+                            100
+                        )
+                        /
+                        avg_over_time(node_filesystem_size_bytes{\(#filter),mountpoint="/",fstype!="rootfs"}[$__rate_interval])
+                    )
+                """
+            }}
+        }]
     }
 }
