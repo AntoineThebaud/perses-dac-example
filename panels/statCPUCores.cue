@@ -5,15 +5,15 @@ import (
 	promQuery "github.com/perses/perses/cue/schemas/queries/prometheus:model"
 )
 
-gaugeSysLoad: panelBuilder & {
+statCPUCores: panelBuilder & {
     #filter: _
 
     spec: {
         display: {
-            name: "Sys Load (5m avg)"
-            description: "Busy state of all CPU cores together (5 min average)"
+            name: "CPU Cores"
+            description: "Total number of CPU cores"
         },
-        plugin: commonGaugePlugin
+        plugin: commonStatPlugin & { spec: format: unit: "decimal" }
         queries: [
             {
                 kind: "TimeSeriesQuery"
@@ -21,11 +21,7 @@ gaugeSysLoad: panelBuilder & {
                     spec: {
                         datasource: name: "argos-world"
                         query: """
-                        avg_over_time(node_load5{\(#filter)}[$__rate_interval]) * 100
-                        /
-                        on(instance) group_left sum by (instance) (
-                            irate(node_cpu_seconds_total{\(#filter)}[$__rate_interval])
-                        )
+                        count(count(node_cpu_seconds_total{\(#filter)}) by (cpu))
                         """
                     }
                 }

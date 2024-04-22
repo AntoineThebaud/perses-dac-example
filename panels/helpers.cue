@@ -1,6 +1,11 @@
 package panels
 
-commonGaugeSpec: {
+import (
+    gaugeChart "github.com/perses/perses/cue/schemas/panels/gauge:model"
+    statChart "github.com/perses/perses/cue/schemas/panels/stat:model"
+)
+
+commonGaugePlugin: gaugeChart & {
     spec: {
         calculation: "last-number",
         format: unit: "percent",
@@ -14,3 +19,12 @@ commonGaugeSpec: {
         }
     }
 }
+
+commonStatPlugin: statChart & {
+    spec: {
+        calculation: "last-number",
+        thresholds: defaultColor: "#7b7b7b"
+    }
+}
+
+unitBytes: { spec: format: unit: "bytes" }

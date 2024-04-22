@@ -53,6 +53,11 @@ dashboardBuilder & {
 				#panels: [
 					panels.gaugeSysLoad & { #filter: #nodeFilter },
 					panels.gaugeRAMUsed & { #filter: #nodeFilter },
+					panels.gaugeRootFS & { #filter: #nodeFilter },
+					panels.statCPUCores & { #filter: #nodeFilter },
+					panels.statRAMTotal & { #filter: #nodeFilter },
+					panels.statRootFSTotal & { #filter: #nodeFilter },
+					panels.statUptime & { #filter: #nodeFilter },
 				]
 			},
 			{

@@ -2,7 +2,6 @@ package panels
 
 import (
 	panelBuilder "github.com/perses/perses/cue/dac-utils/prometheus/panel"
-	gaugeChart "github.com/perses/perses/cue/schemas/panels/gauge:model"
 	promQuery "github.com/perses/perses/cue/schemas/queries/prometheus:model"
 )
 
@@ -14,7 +13,7 @@ gaugeRAMUsed: panelBuilder & {
             name: "RAM Used"
             description: "Non available RAM memory"
         },
-        plugin: gaugeChart & commonGaugeSpec
+        plugin: commonGaugePlugin
         queries: [
             {
                 kind: "TimeSeriesQuery"
