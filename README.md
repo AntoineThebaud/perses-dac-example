@@ -10,4 +10,4 @@ Perses:
 
 CUE:
 - [CUE's official website](https://cuelang.org/)
-- [Cuetorials](https://cuetorials.com/), a third-party source of information that is a very good complement)
+- [Cuetorials](https://cuetorials.com/), a third-party source of information that is a very good complement
