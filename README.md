@@ -2,6 +2,21 @@
 
 Example of doing Dashboard-as-Code with Perses, using the CUE SDK.
 
+## Cheat sheet
+
+```bash
+# login first
+percli login
+# refresh token when needed
+percli refesh
+# build dashboards
+percli dac build -d dashboards/ -ojson
+# deploy dashboards
+percli apply -d built/
+# shortcut build + deploy
+percli dac build -d dashboards/ -ojson && percli apply -d built/
+```
+
 ## References:
 
 Perses:
