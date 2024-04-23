@@ -26,8 +26,18 @@ import (
 
 #nodeVarsBuilder: varGroupBuilder & {
 	#input: [
-		textVarBuilder & {#name: "stack", #value: "erd4", #constant: true},
-		textVarBuilder & {#name: "prometheus", #value: "system", #constant: true},
+		textVarBuilder & {
+			#name: "stack"
+			#value: "erd4"
+			#constant: true
+			#display: hidden: true
+		},
+		textVarBuilder & {
+			#name: "prometheus"
+			#value: "system"
+			#constant: true
+			#display: hidden: true
+		},
 		textVarBuilder & {#name: "job", #value: "cmdbrtu-custom-sd", #constant: true},
 		promQLVarBuilder & {
 			#name: "instance"

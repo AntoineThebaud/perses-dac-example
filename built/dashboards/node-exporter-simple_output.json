@@ -13,6 +13,9 @@
                 "kind": "TextVariable",
                 "spec": {
                     "name": "stack",
+                    "display": {
+                        "hidden": true
+                    },
                     "value": "erd4",
                     "constant": true
                 }
@@ -21,6 +24,9 @@
                 "kind": "TextVariable",
                 "spec": {
                     "name": "prometheus",
+                    "display": {
+                        "hidden": true
+                    },
                     "value": "system",
                     "constant": true
                 }
