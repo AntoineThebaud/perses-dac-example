@@ -38,7 +38,11 @@ import (
 			#constant: true
 			#display: hidden: true
 		},
-		textVarBuilder & {#name: "job", #value: "cmdbrtu-custom-sd", #constant: true},
+		textVarBuilder & {
+			#name: "job"
+			#value: "cmdbrtu-custom-sd"
+			#constant: true
+		},
 		promQLVarBuilder & {
 			#name: "instance"
 			#display: name: "Host"
