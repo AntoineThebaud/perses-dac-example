@@ -35,6 +35,9 @@
                 "kind": "TextVariable",
                 "spec": {
                     "name": "job",
+                    "display": {
+                        "hidden": true
+                    },
                     "value": "cmdbrtu-custom-sd",
                     "constant": true
                 }

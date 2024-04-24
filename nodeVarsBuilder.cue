@@ -24,6 +24,7 @@ varGroupBuilder & {
 			#name: "job"
 			#value: "cmdbrtu-custom-sd"
 			#constant: true
+			#display: hidden: true
 		},
 		promQLVarBuilder & {
 			#name: "instance"
