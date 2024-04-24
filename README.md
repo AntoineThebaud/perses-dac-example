@@ -8,7 +8,7 @@ Example of doing Dashboard-as-Code with Perses, using the CUE SDK.
 # login first
 percli login
 # refresh token when needed
-percli refesh
+percli refresh
 # build dashboards
 percli dac build -d dashboards/ -ojson
 # deploy dashboards
