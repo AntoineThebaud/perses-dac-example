@@ -4,8 +4,8 @@ import (
 	dashboardBuilder "github.com/perses/perses/cue/dac-utils/dashboard"
 	panelGroupsBuilder "github.com/perses/perses/cue/dac-utils/panelgroups"
 	promFilterBuilder "github.com/perses/perses/cue/dac-utils/prometheus/filter"
-	panels "github.com/AntoineThebaud/perses-dac-example/panels"
-	nodeVarsBuilder "github.com/AntoineThebaud/perses-dac-example:nodeVarsBuilder"
+	panels "github.com/antoinethebaud/perses-dac-example/panels"
+	nodeVarsBuilder "github.com/antoinethebaud/perses-dac-example:nodeVarsBuilder"
 )
 
 #nodeFilter: {promFilterBuilder & nodeVarsBuilder}.filter

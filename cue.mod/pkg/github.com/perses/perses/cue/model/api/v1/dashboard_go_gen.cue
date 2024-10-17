@@ -6,12 +6,21 @@ package v1
 
 import "github.com/perses/perses/cue/model/api/v1/common"
 
+#Link: {
+	name?:            string @go(Name)
+	url:              string @go(URL)
+	tooltip?:         string @go(Tooltip)
+	renderVariables?: bool   @go(RenderVariables)
+	targetBlank?:     bool   @go(TargetBlank)
+}
+
 #PanelDisplay: _
 
 #PanelSpec: {
 	display: #PanelDisplay  @go(Display)
 	plugin:  common.#Plugin @go(Plugin)
 	queries?: [...#Query] @go(Queries,[]Query)
+	links?: [...#Link] @go(Links,[]Link)
 }
 
 #Panel: {

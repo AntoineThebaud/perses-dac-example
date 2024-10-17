@@ -1,4 +1,4 @@
-// Copyright 2023 The Perses Authors
+// Copyright 2024 The Perses Authors
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -11,9 +11,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package model
+package variable
 
-kind: "ScatterChart"
-spec: close({
-	sizeRange?: [number, number]
-})
+import (
+	listVarBuilder "github.com/perses/perses/cue/dac-utils/variable/list"
+)
+
+// include the definitions of listVarBuilder at the root
+listVarBuilder
+
+#datasourceName: _ // this is needed for below reference
+
+variable: listVarBuilder.variable & {
+	spec: {
+		plugin: {
+			spec: {
+				datasource: {
+					kind: "PrometheusDatasource"
+					name: #datasourceName
+				}
+			}
+		}
+	}
+}

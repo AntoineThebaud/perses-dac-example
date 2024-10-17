@@ -26,10 +26,6 @@ import (
 	values?: [...#legendValue]
 }
 
-#tooltip: {
-	enablePinning?: bool
-}
-
 #palette: {
 	mode: "auto" | "categorical"
 }
@@ -45,22 +41,16 @@ import (
 	connectNulls?: bool
 }
 
-#yAxis: {
-	show?:   bool
-	label?:  string
-	format?: common.#format
-	min?:    number
-	max?:    number
-}
-
-kind: "TimeSeriesChart"
+kind: "PieChart"
 spec: close({
 	legend?:        #legend
-	tooltip?:       #tooltip
-	yAxis?:         #yAxis
-	thresholds?:    common.#thresholds
-	visual?:        #visual
 	querySettings?: #querySettings
+	calculation:    common.#calculation
+	format?:        common.#format
+	sort?:          "asc" | "desc"
+	mode?:          "value" | "percentage"
+	visual?:        #visual
+	radius:         number
 })
 
 #querySettings: [...{
