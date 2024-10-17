@@ -1,0 +1,474 @@
+{
+    "kind": "Dashboard",
+    "metadata": {
+        "name": "node-exporter-partial",
+        "createdAt": "0001-01-01T00:00:00Z",
+        "updatedAt": "0001-01-01T00:00:00Z",
+        "version": 0,
+        "project": "athebaud"
+    },
+    "spec": {
+        "display": {
+            "name": "Node Exporter Partial"
+        },
+        "variables": [
+            {
+                "kind": "TextVariable",
+                "spec": {
+                    "name": "stack",
+                    "display": {
+                        "hidden": true
+                    },
+                    "value": "erd4",
+                    "constant": true
+                }
+            },
+            {
+                "kind": "TextVariable",
+                "spec": {
+                    "name": "prometheus",
+                    "display": {
+                        "hidden": true
+                    },
+                    "value": "system",
+                    "constant": true
+                }
+            },
+            {
+                "kind": "TextVariable",
+                "spec": {
+                    "name": "job",
+                    "display": {
+                        "hidden": true
+                    },
+                    "value": "cmdbrtu-custom-sd",
+                    "constant": true
+                }
+            },
+            {
+                "kind": "ListVariable",
+                "spec": {
+                    "name": "instance",
+                    "display": {
+                        "name": "Host",
+                        "hidden": false
+                    },
+                    "allowAllValue": false,
+                    "allowMultiple": false,
+                    "plugin": {
+                        "kind": "PrometheusPromQLVariable",
+                        "spec": {
+                            "datasource": {
+                                "kind": "PrometheusDatasource",
+                                "name": "argos-world"
+                            },
+                            "expr": "group by (instance) (node_uname_info{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\"})",
+                            "labelName": "instance"
+                        }
+                    }
+                }
+            }
+        ],
+        "panels": {
+            "0_0": {
+                "kind": "Panel",
+                "spec": {
+                    "display": {
+                        "name": "Sys Load (5m avg)",
+                        "description": "Busy state of all CPU cores together (5 min average)"
+                    },
+                    "plugin": {
+                        "kind": "GaugeChart",
+                        "spec": {
+                            "calculation": "last-number",
+                            "format": {
+                                "unit": "percent"
+                            },
+                            "thresholds": {
+                                "steps": [
+                                    {
+                                        "color": "rgba(50, 172, 45, 0.97)",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "rgba(237, 129, 40, 0.89)",
+                                        "value": 80
+                                    },
+                                    {
+                                        "color": "rgba(245, 54, 54, 0.9)",
+                                        "value": 90
+                                    }
+                                ]
+                            },
+                            "max": 100
+                        }
+                    },
+                    "queries": [
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "avg_over_time(node_load5{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]) * 100\n/\non(instance) group_left sum by (instance) (\n    irate(node_cpu_seconds_total{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])\n)"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "0_1": {
+                "kind": "Panel",
+                "spec": {
+                    "display": {
+                        "name": "RAM Used",
+                        "description": "Non available RAM memory"
+                    },
+                    "plugin": {
+                        "kind": "GaugeChart",
+                        "spec": {
+                            "calculation": "last-number",
+                            "format": {
+                                "unit": "percent"
+                            },
+                            "thresholds": {
+                                "steps": [
+                                    {
+                                        "color": "rgba(50, 172, 45, 0.97)",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "rgba(237, 129, 40, 0.89)",
+                                        "value": 80
+                                    },
+                                    {
+                                        "color": "rgba(245, 54, 54, 0.9)",
+                                        "value": 90
+                                    }
+                                ]
+                            },
+                            "max": 100
+                        }
+                    },
+                    "queries": [
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "(\n    (\n        avg_over_time(node_memory_MemTotal_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])\n        -\n        avg_over_time(node_memory_MemFree_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])\n    )\n    /\n    (\n        avg_over_time(node_memory_MemTotal_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])\n    )\n) * 100"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "100 - (\n    (\n        avg_over_time(node_memory_MemAvailable_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])\n        *\n        100\n    ) \n    /\n    avg_over_time(node_memory_MemTotal_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])\n)"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "0_2": {
+                "kind": "Panel",
+                "spec": {
+                    "display": {
+                        "name": "Root FS used",
+                        "description": "Used Root FS"
+                    },
+                    "plugin": {
+                        "kind": "GaugeChart",
+                        "spec": {
+                            "calculation": "last-number",
+                            "format": {
+                                "unit": "percent"
+                            },
+                            "thresholds": {
+                                "steps": [
+                                    {
+                                        "color": "rgba(50, 172, 45, 0.97)",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "rgba(237, 129, 40, 0.89)",
+                                        "value": 80
+                                    },
+                                    {
+                                        "color": "rgba(245, 54, 54, 0.9)",
+                                        "value": 90
+                                    }
+                                ]
+                            },
+                            "max": 100
+                        }
+                    },
+                    "queries": [
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "    100 - (\n        (\n            avg_over_time(node_filesystem_avail_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\",mountpoint=\"/\",fstype!=\"rootfs\"}[$__rate_interval])\n            *\n            100\n        )\n        /\n        avg_over_time(node_filesystem_size_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\",mountpoint=\"/\",fstype!=\"rootfs\"}[$__rate_interval])\n    )"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "0_3": {
+                "kind": "Panel",
+                "spec": {
+                    "display": {
+                        "name": "CPU Cores",
+                        "description": "Total number of CPU cores"
+                    },
+                    "plugin": {
+                        "kind": "StatChart",
+                        "spec": {
+                            "calculation": "last-number",
+                            "format": {
+                                "unit": "decimal"
+                            },
+                            "thresholds": {
+                                "defaultColor": "#7b7b7b"
+                            }
+                        }
+                    },
+                    "queries": [
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "count(count(node_cpu_seconds_total{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}) by (cpu))"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "0_4": {
+                "kind": "Panel",
+                "spec": {
+                    "display": {
+                        "name": "RAM Total",
+                        "description": "Total RAM"
+                    },
+                    "plugin": {
+                        "kind": "StatChart",
+                        "spec": {
+                            "calculation": "last-number",
+                            "format": {
+                                "unit": "bytes"
+                            },
+                            "thresholds": {
+                                "defaultColor": "#7b7b7b"
+                            }
+                        }
+                    },
+                    "queries": [
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "node_memory_MemTotal_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "0_5": {
+                "kind": "Panel",
+                "spec": {
+                    "display": {
+                        "name": "RootFS Total",
+                        "description": "Total RootFS"
+                    },
+                    "plugin": {
+                        "kind": "StatChart",
+                        "spec": {
+                            "calculation": "last-number",
+                            "format": {
+                                "unit": "bytes"
+                            },
+                            "thresholds": {
+                                "defaultColor": "#7b7b7b"
+                            }
+                        }
+                    },
+                    "queries": [
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "node_filesystem_size_bytes{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\",mountpoint=\"/\",fstype!=\"rootfs\"}"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "0_6": {
+                "kind": "Panel",
+                "spec": {
+                    "display": {
+                        "name": "Uptime",
+                        "description": "System uptime"
+                    },
+                    "plugin": {
+                        "kind": "StatChart",
+                        "spec": {
+                            "calculation": "last-number",
+                            "format": {
+                                "unit": "seconds"
+                            },
+                            "thresholds": {
+                                "defaultColor": "#7b7b7b"
+                            }
+                        }
+                    },
+                    "queries": [
+                        {
+                            "kind": "TimeSeriesQuery",
+                            "spec": {
+                                "plugin": {
+                                    "kind": "PrometheusTimeSeriesQuery",
+                                    "spec": {
+                                        "datasource": {
+                                            "kind": "PrometheusDatasource",
+                                            "name": "argos-world"
+                                        },
+                                        "query": "node_time_seconds{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}\n-\nnode_boot_time_seconds{stack=~\"$stack\",prometheus=~\"$prometheus\",job=~\"$job\",instance=~\"$instance\"}"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "layouts": [
+            {
+                "kind": "Grid",
+                "spec": {
+                    "display": {
+                        "title": "Quick CPU / Mem / Disk"
+                    },
+                    "items": [
+                        {
+                            "x": 0,
+                            "y": 0,
+                            "width": 3,
+                            "height": 6,
+                            "content": {
+                                "$ref": "#/spec/panels/0_0"
+                            }
+                        },
+                        {
+                            "x": 3,
+                            "y": 0,
+                            "width": 3,
+                            "height": 6,
+                            "content": {
+                                "$ref": "#/spec/panels/0_1"
+                            }
+                        },
+                        {
+                            "x": 6,
+                            "y": 0,
+                            "width": 3,
+                            "height": 6,
+                            "content": {
+                                "$ref": "#/spec/panels/0_2"
+                            }
+                        },
+                        {
+                            "x": 9,
+                            "y": 0,
+                            "width": 3,
+                            "height": 6,
+                            "content": {
+                                "$ref": "#/spec/panels/0_3"
+                            }
+                        },
+                        {
+                            "x": 12,
+                            "y": 0,
+                            "width": 3,
+                            "height": 6,
+                            "content": {
+                                "$ref": "#/spec/panels/0_4"
+                            }
+                        },
+                        {
+                            "x": 15,
+                            "y": 0,
+                            "width": 3,
+                            "height": 6,
+                            "content": {
+                                "$ref": "#/spec/panels/0_5"
+                            }
+                        },
+                        {
+                            "x": 18,
+                            "y": 0,
+                            "width": 3,
+                            "height": 6,
+                            "content": {
+                                "$ref": "#/spec/panels/0_6"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "duration": "1h"
+    }
+}
