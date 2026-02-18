@@ -3,7 +3,7 @@ package dashboard
 import (
 	dashboardBuilder "github.com/perses/perses/cue/dac-utils/dashboard"
 	panelGroupsBuilder "github.com/perses/perses/cue/dac-utils/panelgroups"
-	promFilterBuilder "github.com/perses/perses/cue/dac-utils/prometheus/filter"
+	promFilterBuilder "github.com/perses/plugins/prometheus/sdk/cue/filter"
 	panels "github.com/antoinethebaud/perses-dac-example/panels"
 	nodeVarsBuilder "github.com/antoinethebaud/perses-dac-example:nodeVarsBuilder"
 )

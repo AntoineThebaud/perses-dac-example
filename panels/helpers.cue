@@ -1,9 +1,9 @@
 package panels
 
 import (
-	gaugeChart "github.com/perses/perses/cue/schemas/panels/gauge:model"
-	statChart "github.com/perses/perses/cue/schemas/panels/stat:model"
-	timeseriesChart "github.com/perses/perses/cue/schemas/panels/time-series:model"
+	gaugeChart "github.com/perses/plugins/gaugechart/schemas:model"
+	statChart "github.com/perses/plugins/statchart/schemas:model"
+	timeseriesChart "github.com/perses/plugins/timeserieschart/schemas:model"
 )
 
 commonGaugePlugin: gaugeChart & {spec: {

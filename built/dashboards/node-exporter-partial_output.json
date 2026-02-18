@@ -3,9 +3,9 @@
     "metadata": {
         "name": "node-exporter-partial",
         "createdAt": "0001-01-01T00:00:00Z",
+        "project": "athebaud",
         "updatedAt": "0001-01-01T00:00:00Z",
-        "version": 0,
-        "project": "athebaud"
+        "version": 0
     },
     "spec": {
         "display": {
@@ -15,10 +15,10 @@
             {
                 "kind": "TextVariable",
                 "spec": {
-                    "name": "stack",
                     "display": {
                         "hidden": true
                     },
+                    "name": "stack",
                     "value": "erd4",
                     "constant": true
                 }
@@ -26,10 +26,10 @@
             {
                 "kind": "TextVariable",
                 "spec": {
-                    "name": "prometheus",
                     "display": {
                         "hidden": true
                     },
+                    "name": "prometheus",
                     "value": "system",
                     "constant": true
                 }
@@ -37,10 +37,10 @@
             {
                 "kind": "TextVariable",
                 "spec": {
-                    "name": "job",
                     "display": {
                         "hidden": true
                     },
+                    "name": "job",
                     "value": "cmdbrtu-custom-sd",
                     "constant": true
                 }
@@ -48,11 +48,11 @@
             {
                 "kind": "ListVariable",
                 "spec": {
-                    "name": "instance",
                     "display": {
                         "name": "Host",
                         "hidden": false
                     },
+                    "name": "instance",
                     "allowAllValue": false,
                     "allowMultiple": false,
                     "plugin": {
@@ -84,6 +84,7 @@
                             "format": {
                                 "unit": "percent"
                             },
+                            "max": 100,
                             "thresholds": {
                                 "steps": [
                                     {
@@ -99,8 +100,7 @@
                                         "value": 90
                                     }
                                 ]
-                            },
-                            "max": 100
+                            }
                         }
                     },
                     "queries": [
@@ -136,6 +136,7 @@
                             "format": {
                                 "unit": "percent"
                             },
+                            "max": 100,
                             "thresholds": {
                                 "steps": [
                                     {
@@ -151,8 +152,7 @@
                                         "value": 90
                                     }
                                 ]
-                            },
-                            "max": 100
+                            }
                         }
                     },
                     "queries": [
@@ -203,6 +203,7 @@
                             "format": {
                                 "unit": "percent"
                             },
+                            "max": 100,
                             "thresholds": {
                                 "steps": [
                                     {
@@ -218,8 +219,7 @@
                                         "value": 90
                                     }
                                 ]
-                            },
-                            "max": 100
+                            }
                         }
                     },
                     "queries": [

@@ -2,7 +2,7 @@ package nodeVarsBuilder
 
 import (
 	varGroupBuilder "github.com/perses/perses/cue/dac-utils/variable/group"
-	promQLVarBuilder "github.com/perses/perses/cue/dac-utils/prometheus/variable/promql"
+	promQLVarBuilder "github.com/perses/plugins/prometheus/sdk/cue/variable/promql"
 	textVarBuilder "github.com/perses/perses/cue/dac-utils/variable/text"
 )
 
