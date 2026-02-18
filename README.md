@@ -1,6 +1,6 @@
 # perses-dac-example
 
-Example of doing Dashboard-as-Code with Perses, using the CUE SDK.
+Example of doing Dashboard-as-Code with [Perses](https://github.com/perses/perses), using the CUE SDK.
 
 ## Cheat sheet
 
